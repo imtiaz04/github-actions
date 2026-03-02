@@ -1,0 +1,13 @@
+name: Hello workflow
+
+on:
+  push:
+  branches:
+    m
+
+jobs:
+  greet:
+    steps:
+      - name: say hello
+      - run: echo "hello"
+  
