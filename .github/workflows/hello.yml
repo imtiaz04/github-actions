@@ -6,7 +6,7 @@ on:
 # this is name of the job
 jobs:
   greet:
-  # github runner
+  # github runner, each job runs on runner
     runs-on: ubuntu-latest
     steps:
       - name: say hello
