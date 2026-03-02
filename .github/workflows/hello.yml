@@ -1,11 +1,12 @@
 name: Hello workflow
-
+# runs on a trigger
 on:
   push:
-    branches: [main]    
-
+    branches: [main]
+# this is name of the job
 jobs:
   greet:
+  # github runner
     runs-on: ubuntu-latest
     steps:
       - name: say hello
