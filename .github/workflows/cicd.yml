@@ -1,13 +1,13 @@
-
-name: Refactor CI/CD workflow with environment options
-
+# this is the name of the workflow that will be displayed in actions tab
+name: cicd
+# manual click (deliver) workflow when ever user needs
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "This is the environment value where this workflow runs"
-        required: true
+        description: This is the environment value where this workflow runs
         default: "dev"
+        required: true
         type: choice
         options:
           - dev
@@ -15,29 +15,33 @@ on:
           - staging
 
 jobs:
-  greet:
+# every job need a runner, it is called parallaism
+
+  code:
     runs-on: ubuntu-latest
     steps:
-      - name: Say hello
-        run: echo "Hello"
+      - name: checkout code
+        run: echo "clone the code from github"
 
-      - name: Say hello to username
-        run: echo "Hello $USER"
-
-  details:
+  build:
+    needs: code
     runs-on: ubuntu-latest
     steps:
-      - name: Show Python version
-        run: python --version
+      - name: build docker container
+        run: echo "docker container build"
 
-      - name: Print selected environment
-        run: echo "Environment selected is ${{ github.event.inputs.environment }}"
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: test the container
+        run: echo "testing the container"
 
-
-
-
-
-      
+  deploy:
+    if: inputs.environment == 'dev'
+    needs: [build,test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploying the application
+        run: echo "docker compose deployed the app"
         
-
-      
