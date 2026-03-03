@@ -1,32 +1,43 @@
-name: Hello workflow
-# runs on an automatic trigger, whenever change is pushed to branch
-on:  
+
+name: Refactor CI/CD workflow with environment options
+
+on:
   workflow_dispatch:
     inputs:
       environment:
         description: "This is the environment value where this workflow runs"
-        default: "dev"
         required: true
+        default: "dev"
         type: choice
         options:
-            - dev
-            - prod
-            - staging
-# this is name of the job
+          - dev
+          - prod
+          - staging
+
 jobs:
   greet:
-  # github runner, each job runs on runner
     runs-on: ubuntu-latest
     steps:
-      - name: say hello
-        run: echo "hello"
+      - name: Say hello
+        run: echo "Hello"
 
-      - name: say hello to username
-        run: echo "hello $USER"
+      - name: Say hello to username
+        run: echo "Hello $USER"
+
   details:
     runs-on: ubuntu-latest
     steps:
-      - name: show what is the version of python, do
+      - name: Show Python version
+        run: python --version
+
+      - name: Print selected environment
+        run: echo "Environment selected is ${{ github.event.inputs.environment }}"
+
+
+
+
+
+      
         
 
       
