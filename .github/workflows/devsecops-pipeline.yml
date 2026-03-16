@@ -31,4 +31,10 @@ jobs:
     trivy:
         needs: build
         uses: ./.github/workflows/image-scan.yml
-        secrets: inherit   
+        secrets: inherit
+    
+    # Deploy yo production if all checks pass
+    deploy:
+        needs: trivy
+        uses: ./.github/workflows/deploy-to-server.yml
+        secrets: inherit    
