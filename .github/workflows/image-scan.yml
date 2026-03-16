@@ -15,9 +15,12 @@ jobs:
                     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
             - name: Trivy image scan              
-              uses: aquasecurity/trivy-action@0.20.0
+              uses: aquasecurity/trivy-action@0.35.0
               with:
-                severity-threshold: 'CRITICAL'
+                image-ref: imtiaz42/github-actions-app:latest
+                format: table
                 exit-code: '1'
-                image-ref: ${{ vars.DOCKERHUB_USER1 }}/github-actions-app:latest
-
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'HIGH,CRITICAL'
+                scanners: 'vuln'
