@@ -19,8 +19,12 @@ jobs:
     docker-lint:
         needs: dependency-scan
         uses: ./.github/workflows/docker-lint.yml 
+        
     # Builds once security scans are completed.
+
     build:
         needs: [code-quality, secret-scan, dependency-scan, docker-lint]
         uses: ./.github/workflows/docker-build-push.yml
+        secrets:
+            inherit: true
             
