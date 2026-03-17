@@ -8,6 +8,7 @@ jobs:
     runs-on: self-hosted
     env:
       DOCKERHUB_USERNAME1: ${{ vars.DOCKERHUB_USER1 }}
+      DOCKERHUB_TAG: ${{ github.event.workflow_run.head_sha }}
 
     steps:
       - name: checkout code
@@ -17,4 +18,4 @@ jobs:
         run: docker pull $DOCKERHUB_USERNAME1/github-actions-app:latest
 
       - name: deploy with docker compose
-        run: docker compose up -d --build --force-recreate
+        run: docker compose down && docker compose up -d --build --force-recreate
