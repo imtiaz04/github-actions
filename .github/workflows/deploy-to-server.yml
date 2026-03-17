@@ -39,11 +39,18 @@ jobs:
                 key: ${{ secrets.PROD_SERVER_SSH_KEY }}
                 port: 22
                 script: |
+                    # echo "Running APP...."
+                    # sudo apt get update && sudo apt-get install docker.io docker-compose-v2 -y
+                    # sudo usermod -aG docker $USER && newgrp docker
+                    # export DOCKERHUB_USERNAME1=${{ vars.DOCKERHUB_USER1 }}
+                    # export DOCKERHUB_TAG=${{ github.event.workflow_run.head_sha }}
+                    # echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER1 }} --password-stdin
+                    # cd devops 
+                    # docker compose up -d --build --force-recreate --pull always
+                    
                     echo "Running APP...."
-                    sudo apt get update && sudo apt-get install docker.io docker-compose-v2 -y
-                    sudo usermod -aG docker $USER && newgrp docker
-                    export DOCKERHUB_USERNAME1=${{ vars.DOCKERHUB_USER1 }}
-                    export DOCKERHUB_TAG=${{ github.event.workflow_run.head_sha }}
-                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
-                    cd ~devops docker compose up -d --build --force-recreate --pull always
-                        
+                    sudo apt-get update -y
+                    sudo apt-get install docker.io docker-compose-v2 -y
+
+                    cd devops
+                    sudo docker compose up -d --build --force-recreate --pull always
